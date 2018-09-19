@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 int main(void) {
-	/*?? 変数の宣言 *///ok
+
 	int a, b;
 
 	printf("a = ");
