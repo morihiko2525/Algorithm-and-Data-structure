@@ -1,0 +1,23 @@
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include "stdafx.h"
+
+int main(void) {
+	/*?? 変数の宣言 *///ok
+	int a, b;
+
+	printf("a = ");
+	scanf_s("%d", &a);
+
+	printf("b = ");
+	scanf_s("%d", &b);
+
+	printf("a + b = %d\n", a + b); /* 和の表示 */
+	printf("a - b = %d\n", a - b); /*?? 差の表示 */
+	printf("a * b = %d\n", a * b); /*?? 積の表示 */
+	printf("a / b = %d\n", a / b); /*?? 商の表示 */
+	printf("剰余 = %d\n", a % b); /*?? 剰余の表示 */
+
+	return 0;
+}
