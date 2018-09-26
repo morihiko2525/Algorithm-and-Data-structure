@@ -1,0 +1,25 @@
+#include "stdafx.h"
+
+
+// 2018年度　アルゴリズムとデータ構造 サンプルプログラム 02-1
+// 配列の要素の値の中から最大値を求める．
+
+// /* ?? */ を適切なC言語の表記に置きかえる
+
+
+int get_max(int D[]) {
+	int i, max;
+	max = D[0];
+	for (i = 1; i < 10; i += 1) {
+		if (max < D[i]) max = D[i];
+	}
+	return max;
+} // end of get_max
+
+#define N 10
+int main() {
+	int D[N] = { 3, 1, 4, 2, 8, 2, 6, 9, 7, 5 };
+
+	printf("Max = %d\n", get_max(D));
+	return 0;
+}
