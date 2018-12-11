@@ -1,0 +1,129 @@
+// 2018年度 アルゴリズムとデータ構造 演習プログラム 11-2
+// バックトラックと枝刈りにより部分和を求めるプログラム．
+//
+// 枝刈りを用いて部分和を求める
+// (a) 複数の解がある場合は，すべての解が求まるようにする．
+//（ヒント，解が求まっても終了しないようにする．）
+// (b) 枝刈りが適切に実行されたことを示す表示を組み込む．
+//（ヒント，枝刈りした回数を示す変数を表示する．）
+
+// /*??*/に適切なプログラムを記入してプログラムを完成させること
+// 課題文の指示と上記の(a), (b)に対応する以外を除き　/*??*/以外の場所は変更しないこと．
+// /*??*/の行を追加，削除するのは差し支えない．
+// 関数mainに記述された動作確認プログラムは，適宜変更してもよい．
+
+// マクロ変数IDに学生番号，NAMEに氏名を，文字列として定義すること．
+// 例
+// #define ID "16A5000"
+// #define NAME "工大太郎"
+
+#define ID    "/*??*/"
+#define NAME  "/*??*/"
+
+#define _CRT_NO_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+#define N 4 // 数値の数
+static const int X[N] = { 4, 13, 7, 8 }; // 数値の集合,
+  // const は要素の値を変更しないことを意味する．constant．
+static int Y[N];
+
+//-------------------------------------------------------------------------
+static void ss_sum_bt2(const int[], int[], int, int, int);
+
+int main() {
+	int s;
+
+	printf("AD_2018_11_HW: %s, %s\n", ID, NAME);
+
+	for (;;) {
+
+		printf("s = ");
+		scanf_s("%d", &s);
+		if (s <= 0) break;
+		ss_sum_bt2(X, Y, N, s, 0);
+	}
+	printf("AD_2018_11_HW: %s, %s\n", ID, NAME);
+
+	return 0;
+} // end main
+//-------------------------------------------------------------------------
+static void ss_sum_bt2(const int X[], int Y[], int n, int s, int level) {
+	// X  部分和を求める数値の集合
+	// Y[i]  0ならばX[i]を部分和に含めない，1ならば含める
+	// n 列挙木の高さ
+	// s 求める部分和
+	// level 処理中の列挙木のレベル
+
+	int i;
+	int sum;
+	int sum1; // 選択した整数の和
+	int sum2; // 選択した整数と未選択のすべての整数の和
+	static int found; // 解がみつかったら1増やす．
+	static int ncnt; // 動作確認用．本来のプログラムには不要．
+
+	if (level == 0) { // 実行開始
+		found = 0;
+		ncnt = 0;
+	}
+	if (level >= n) { // 列挙木の葉を処理中
+
+		/*??*/sum = 0;
+		/*??*/for (i = 0; i < n; i++) { sum += Y[i] * X[i]; }
+		if (sum == s) { // 解が見つかった
+			found++;
+			printf("Found  ");
+			for (i = 0; i < n; i += 1) {
+				if (Y[i] == 1) printf("%d ", X[i]);
+			}
+			printf("\n");
+			exit(0); // プログラムを終了
+		}
+	}
+	else { // level < n,　内部節点を処理中
+   /*??*/ //sum1, sum2を初期化 
+		sum1 = 0; sum2 = 0;
+		for (i = 0; i < n; i += 1) {
+			/*??*/if (i < level) {
+				/*??*/sum1 += Y[i] * X[i];
+				/*??*/sum2 = sum1;
+				/*??*/
+			}
+			else {
+				sum2 += X[i];
+				/*??*/
+			}
+			/*??*/;
+		} // end for
+		if (/*??*/(sum1<=s) and(sum2>=s)) { // 枝刈りの判定
+			/*??*/if (Y[level] == 0) { 
+				// X[level]を足さない場合
+				ss_sum_bt2(X, Y, n, s, level + 1);
+			}
+			/*??*/if(Y[level] == 1){
+				// X[level]を足す場合
+			ss_sum_bt2(X, Y, n, s, level + 1);
+			}
+		}
+		else ncnt++; // 動作確認用．本来のプログラムには不要．
+	} // end_if
+
+	if (level == 0) {
+		// main関数から呼び出された
+		// BT_subsetsum(X, Y, n , s, 0)の処理の最後
+		// すべての葉をチェックして，根に戻ってきた．
+
+		if (found == 0) printf("Not found\n");
+		return;
+	} // end_if
+} // end ss_sum_bt2
+
+
+/* 共同作業者がいれば，以下にコメントとして学生番号と氏名を示すこと．
+
+*/
+
+/*  教員へのコメント欄（もしあれば）
+
+*/
